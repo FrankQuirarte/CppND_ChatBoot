@@ -18,6 +18,7 @@ private:
     ////
 
     //BEFORE: ChatLogic *_chatLogic;
+    //TASK 1
     std::unique_ptr<ChatLogic> _chatLogic;
 
     ////

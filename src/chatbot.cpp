@@ -45,6 +45,71 @@ ChatBot::~ChatBot()
 //// STUDENT CODE
 ////
 
+//TASK 2: make changes to the class ChatBot such that it complies with the Rule of Five.
+
+// copy constructor
+ChatBot::ChatBot(const ChatBot &source) {
+    std::cout<<"ChatBot copy constructor"<<std::endl;
+    //creates a copy of the ChatBot elements
+    this->_currentNode = source._currentNode;
+    this->_rootNode = source._rootNode;
+    this->_chatLogic = source._chatLogic;
+    this->_image = new wxBitmap(*source._image);
+}
+
+// copy assignment
+ChatBot& ChatBot::operator=(const ChatBot &source) {
+    std::cout<<"ChatBot copy assignment"<<std::endl;
+    // protects against self-assignment
+    if (this == &source){
+        return *this;
+    }
+    //creates a copy of the ChatBot elements
+    this->_currentNode = source._currentNode;
+    this->_rootNode = source._rootNode;
+    this->_chatLogic = source._chatLogic;
+    this->_image = new wxBitmap(*source._image);
+    
+    return *this;
+}
+
+// move constructor
+ChatBot::ChatBot(ChatBot &&source) {
+    std::cout<<"ChatBot move constructor"<<std::endl;
+    
+    //creates a copy of the ChatBot elements
+    this->_currentNode = source._currentNode;
+    this->_rootNode = source._rootNode;
+    this->_chatLogic = source._chatLogic;
+    this->_image = new wxBitmap(*source._image);
+    //clears the source elements
+    source._currentNode = nullptr;
+    source._rootNode = nullptr;
+    source._chatLogic = nullptr;
+    source._image = NULL; //wxWidgets used NULL and not nullpt
+}
+
+// move assignment
+ChatBot& ChatBot::operator=(ChatBot &&source) {
+    std::cout<<"ChatBot move assignment"<<std::endl;
+    // protects against self-assignment
+    if (this == &source){
+        return *this;
+    }
+    //creates a copy of the ChatBot elements
+    this->_currentNode = source._currentNode;
+    this->_rootNode = source._rootNode;
+    this->_chatLogic = source._chatLogic;
+    this->_image = new wxBitmap(*source._image);
+    //clears the source elements
+    source._currentNode = nullptr;
+    source._rootNode = nullptr;
+    source._chatLogic = nullptr;
+    source._image = NULL; //wxWidgets used NULL and not nullpt
+
+    return *this;
+}
+
 ////
 //// EOF STUDENT CODE
 
