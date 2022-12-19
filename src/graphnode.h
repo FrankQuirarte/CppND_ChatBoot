@@ -15,13 +15,15 @@ private:
     //// STUDENT CODE
     ////
 
+    //TASK 4
     // data handles (owned)
     //BEFORE: std::vector<GraphEdge *> _childEdges;  
     std::vector<std::unique_ptr<GraphEdge>> _childEdges; // edges to subsequent nodes
-
     // data handles (not owned)
     std::vector<GraphEdge *> _parentEdges; // edges to preceding nodes 
-	//BEFORE: ChatBot *_chatBot;
+    
+    //TASK 5
+    //BEFORE: ChatBot *_chatBot;
     ChatBot _chatBot;
 
     ////

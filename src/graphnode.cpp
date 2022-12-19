@@ -12,8 +12,9 @@ GraphNode::~GraphNode()
     //// STUDENT CODE
     ////
 
-    //TODO: check why
-	//delete _chatBot; 
+    //TASK 5
+    //not needed anymore, since smart pointer handles the destruction of the object itself
+    //delete _chatBot; 
 
     ////
     //// EOF STUDENT CODE
@@ -39,6 +40,7 @@ void GraphNode::AddEdgeToChildNode(/*GraphEdge *edge*/ std::unique_ptr<GraphEdge
 ////
 void GraphNode::MoveChatbotHere(ChatBot chatbot)
 {
+    //TASK 5
     //BEFORE: _chatBot = chatbot;
     //BEFORE: _chatBot->SetCurrentNode(this);
     _chatBot = std::move(chatbot);
@@ -47,8 +49,8 @@ void GraphNode::MoveChatbotHere(ChatBot chatbot)
 
 void GraphNode::MoveChatbotToNewNode(GraphNode *newNode)
 {
+    //TASK 5
     //BEFORE: newNode->MoveChatbotHere(_chatBot);
-    //BEFORE:_chatBot = nullptr; // invalidate pointer at source
     newNode->MoveChatbotHere(std::move(_chatBot));
     //_chatBot = nullptr; // invalidate pointer at source
 }

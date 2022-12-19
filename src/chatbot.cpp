@@ -46,32 +46,32 @@ ChatBot::~ChatBot()
 ////
 
 //TASK 2: make changes to the class ChatBot such that it complies with the Rule of Five.
+//based on Sandesh Patil explanation: https://www.codementor.io/@sandesh87/the-rule-of-five-in-c-1pdgpzb04f
 
 // copy constructor
 ChatBot::ChatBot(const ChatBot &source) {
     std::cout<<"ChatBot copy constructor"<<std::endl;
-    //creates a copy of the ChatBot elements
-    this->_currentNode = source._currentNode;
-    this->_rootNode = source._rootNode;
+    //creates a deep copy of the ChatBot elements
     this->_chatLogic = source._chatLogic;
+    this->_rootNode = source._rootNode;
     this->_image = new wxBitmap(*source._image);
-    
+    this->_currentNode = source._currentNode;
     this->_chatLogic->SetChatbotHandle(this);
 }
 
-// copy assignment
-ChatBot& ChatBot::operator=(const ChatBot &source) {
+// copy assignment constructor 
+
+ChatBot& ChatBot::operator=(const ChatBot &rhs) {
     std::cout<<"ChatBot copy assignment"<<std::endl;
     // protects against self-assignment
-    if (this == &source){
+    if (this == &rhs){
         return *this;
     }
-    //creates a copy of the ChatBot elements
-    this->_currentNode = source._currentNode;
-    this->_rootNode = source._rootNode;
-    this->_chatLogic = source._chatLogic;
-    this->_image = new wxBitmap(*source._image);
-    
+    //creates a deep copy of the ChatBot elements
+    this->_chatLogic = rhs._chatLogic;
+    this->_rootNode = rhs._rootNode;
+    this->_image = new wxBitmap(*rhs._image);
+    this->_currentNode = rhs._currentNode;
     this->_chatLogic->SetChatbotHandle(this);
 
     return *this;
@@ -79,42 +79,42 @@ ChatBot& ChatBot::operator=(const ChatBot &source) {
 
 // move constructor
 ChatBot::ChatBot(ChatBot &&source) {
-    std::cout<<"ChatBot move constructor"<<std::endl;
+    std::cout<<"ChatBot Move Constructor"<<std::endl;
     
-    //creates a copy of the ChatBot elements
-    this->_currentNode = source._currentNode;
-    this->_rootNode = source._rootNode;
+    //creates a deep copy of the ChatBot elements to implement move semantics
     this->_chatLogic = source._chatLogic;
+    this->_rootNode = source._rootNode;
     this->_image = new wxBitmap(*source._image);
-    
+    this->_currentNode = source._currentNode;
     this->_chatLogic->SetChatbotHandle(this);
 
-    source._currentNode = nullptr;
-    source._rootNode = nullptr;
+    //delete old data
     source._chatLogic = nullptr;
-    source._image = NULL; //wxWidgets used NULL and not nullpt
+    source._rootNode = nullptr;
+    source._image = NULL; //for legacy reasons, wxWidgets used NULL istead of nullpt
+    source._currentNode = nullptr;
 }
 
 // move assignment
-ChatBot& ChatBot::operator=(ChatBot &&source) {
-    std::cout<<"ChatBot move assignment"<<std::endl;
+ChatBot& ChatBot::operator=(ChatBot &&rhs) {
+    std::cout<<"ChatBot Move Assignment Operator"<<std::endl;
     // protects against self-assignment
-    if (this == &source){
+    if (this == &rhs){
         return *this;
     }
-    //creates a copy of the ChatBot elements
-    this->_currentNode = source._currentNode;
-    this->_rootNode = source._rootNode;
-    this->_chatLogic = source._chatLogic;
-    this->_image = new wxBitmap(*source._image);
-    
+    //creates a deep copy of the ChatBot elements to implement move semantics
+    this->_chatLogic = rhs._chatLogic;
+    this->_rootNode = rhs._rootNode;
+    this->_image = new wxBitmap(*rhs._image);
+    this->_currentNode = rhs._currentNode;
     this->_chatLogic->SetChatbotHandle(this);
 
-    source._currentNode = nullptr;
-    source._rootNode = nullptr;
-    source._chatLogic = nullptr;
-    source._image = NULL; //wxWidgets used NULL and not nullpt
-
+    //delete old data
+    rhs._chatLogic = nullptr;
+    rhs._rootNode = nullptr;
+    rhs._image = NULL; //wxWidgets used NULL and not nullpt
+    rhs._currentNode = nullptr;
+    
     return *this;
 }
 
