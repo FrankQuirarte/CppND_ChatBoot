@@ -84,14 +84,15 @@ ChatBot::ChatBot(ChatBot &&source) {
     //creates a deep copy of the ChatBot elements to implement move semantics
     this->_chatLogic = source._chatLogic;
     this->_rootNode = source._rootNode;
-    this->_image = new wxBitmap(*source._image);
+    //this->_image = new wxBitmap(*source._image);
+    this->_image = source._image;
     this->_currentNode = source._currentNode;
     this->_chatLogic->SetChatbotHandle(this);
 
     //delete old data
     source._chatLogic = nullptr;
     source._rootNode = nullptr;
-    source._image = NULL; //for legacy reasons, wxWidgets used NULL istead of nullpt
+    source._image = NULL; //for legacy reasons, wxWidgets uses NULL instead of nullpt
     source._currentNode = nullptr;
 }
 
@@ -105,7 +106,8 @@ ChatBot& ChatBot::operator=(ChatBot &&rhs) {
     //creates a deep copy of the ChatBot elements to implement move semantics
     this->_chatLogic = rhs._chatLogic;
     this->_rootNode = rhs._rootNode;
-    this->_image = new wxBitmap(*rhs._image);
+    //this->_image = new wxBitmap(*rhs._image);
+    this->_image = rhs._image;
     this->_currentNode = rhs._currentNode;
     this->_chatLogic->SetChatbotHandle(this);
 
